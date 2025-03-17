@@ -2,6 +2,8 @@ plugins {
     id("java")
     id("com.github.ben-manes.versions") version "0.52.0"
     application
+    jacoco
+    id("checkstyle")
 }
 
 group = "hexlet.code"
@@ -27,3 +29,5 @@ tasks.getByName("run", JavaExec::class) {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.jacocoTestReport { reports { xml.required.set(true) } }

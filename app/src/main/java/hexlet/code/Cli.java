@@ -3,9 +3,6 @@ package hexlet.code;
 import java.util.Scanner;
 
 public class Cli {
-    /**
-     * Метод для приветствия пользователя
-     */
     public static void greetUser() {
         Scanner scanner = new Scanner(System.in);
 

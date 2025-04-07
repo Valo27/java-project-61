@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.games.Even;
 import hexlet.code.games.Calc;
+import hexlet.code.games.GCD;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -56,6 +57,13 @@ public class Engine {
             gameRoutine();
         }
 
+        if (choice.equals("4")) {
+            currentGame = "GCD";
+            Engine.getGreeting();
+            GCD.getGameQuestion();
+            gameRoutine();
+        }
+
         if (choice.equals("0")) {
             System.out.println("Bye.");
         }
@@ -68,6 +76,9 @@ public class Engine {
                 break;
             case "Calc":
                 task = Calc.getTask();
+                break;
+            case "GCD":
+                task = GCD.getTask();
                 break;
             default:
                 break;
@@ -83,6 +94,10 @@ public class Engine {
             case "Calc":
                 isCorrectAnswer = Calc.checkAnswer();
                 rightAnswer = Calc.getRightAnswer();
+                break;
+            case "GCD":
+                isCorrectAnswer = GCD.checkAnswer(answer, task);
+                rightAnswer = GCD.getRightAnswer(task);
                 break;
             default:
                 break;

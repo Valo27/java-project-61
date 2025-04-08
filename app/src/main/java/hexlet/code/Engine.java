@@ -4,6 +4,7 @@ import hexlet.code.games.Even;
 import hexlet.code.games.Calc;
 import hexlet.code.games.GCD;
 import hexlet.code.games.Progression;
+import hexlet.code.games.Prime;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -72,6 +73,13 @@ public class Engine {
             gameRoutine();
         }
 
+        if (choice.equals("6")) {
+            currentGame = "Prime";
+            Engine.getGreeting();
+            Prime.getGameQuestion();
+            gameRoutine();
+        }
+
         if (choice.equals("0")) {
             System.out.println("Bye.");
         }
@@ -90,6 +98,9 @@ public class Engine {
                 break;
             case "Progression":
                 task = Progression.getTask();
+                break;
+            case "Prime":
+                task = Prime.getTask();
                 break;
             default:
                 break;
@@ -113,6 +124,10 @@ public class Engine {
             case "Progression":
                 isCorrectAnswer = Progression.checkAnswer(answer);
                 rightAnswer = Progression.getRightAnswer();
+                break;
+            case "Prime":
+                isCorrectAnswer = Prime.checkAnswer(answer, task);
+                rightAnswer = Prime.getRightAnswer(task);
                 break;
             default:
                 break;

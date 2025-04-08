@@ -3,6 +3,7 @@ package hexlet.code;
 import hexlet.code.games.Even;
 import hexlet.code.games.Calc;
 import hexlet.code.games.GCD;
+import hexlet.code.games.Progression;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -64,6 +65,13 @@ public class Engine {
             gameRoutine();
         }
 
+        if (choice.equals("5")) {
+            currentGame = "Progression";
+            Engine.getGreeting();
+            Progression.getGameQuestion();
+            gameRoutine();
+        }
+
         if (choice.equals("0")) {
             System.out.println("Bye.");
         }
@@ -79,6 +87,9 @@ public class Engine {
                 break;
             case "GCD":
                 task = GCD.getTask();
+                break;
+            case "Progression":
+                task = Progression.getTask();
                 break;
             default:
                 break;
@@ -98,6 +109,10 @@ public class Engine {
             case "GCD":
                 isCorrectAnswer = GCD.checkAnswer(answer, task);
                 rightAnswer = GCD.getRightAnswer(task);
+                break;
+            case "Progression":
+                isCorrectAnswer = Progression.checkAnswer(answer);
+                rightAnswer = Progression.getRightAnswer();
                 break;
             default:
                 break;

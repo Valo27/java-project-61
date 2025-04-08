@@ -8,7 +8,7 @@ public class GCD {
     }
 
     public static String getTask() {
-        int num1 = Engine.getRandomNumber(100); // числа от 1 до 100
+        int num1 = Engine.getRandomNumber(100);
         int num2 = Engine.getRandomNumber(100);
         return num1 + " " + num2;
     }

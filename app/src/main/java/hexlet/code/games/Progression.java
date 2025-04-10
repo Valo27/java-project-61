@@ -1,7 +1,12 @@
+
+
 package hexlet.code.games;
 
 import java.util.Random;
 
+/**
+ * Класс для игры "Progression" - угадывание пропущенного числа в арифметической прогрессии
+ */
 public class Progression {
     private static final Random random = new Random();
     private static int hiddenNumber;
@@ -10,10 +15,16 @@ public class Progression {
     private static int progressionLength;
     private static int step;
 
+    /**
+     * Выводит правила игры
+     */
     public static void getGameQuestion() {
         System.out.println("What number is missing in the progression?");
     }
 
+    /**
+     * Генерирует задачу с пропущенным числом в прогрессии
+     */
     public static String getTask() {
         progressionLength = random.nextInt(6) + 5;
         step = random.nextInt(10) + 1;
@@ -39,10 +50,16 @@ public class Progression {
         return task.toString().trim();
     }
 
+    /**
+     * Проверяет ответ пользователя
+     */
     public static boolean checkAnswer(String answer) {
         return Integer.parseInt(answer) == hiddenNumber;
     }
 
+    /**
+     * Возвращает правильный ответ
+     */
     public static String getRightAnswer() {
         return String.valueOf(hiddenNumber);
     }

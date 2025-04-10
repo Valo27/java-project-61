@@ -8,6 +8,9 @@ import hexlet.code.games.Prime;
 import java.util.Scanner;
 import java.util.Random;
 
+/**
+ * Основной класс, управляющий игровым процессом
+ */
 public class Engine {
     private static Scanner userInput = new Scanner(System.in);
     private static String name;
@@ -19,10 +22,16 @@ public class Engine {
     private static Boolean isCorrectAnswer;
     private static String rightAnswer;
 
+    /**
+     * Получение ввода от пользователя
+     */
     public static String getChoice() {
         return userInput.nextLine();
     }
 
+    /**
+     * Приветствие и получение имени игрока
+     */
     public static void getGreeting() {
         System.out.println("Welcome to the Brain Games!");
         System.out.print("May I have your name?: ");
@@ -30,15 +39,21 @@ public class Engine {
         System.out.println("Hello, " + name + "!");
     }
 
+    /**
+     * Генерация случайного числа
+     */
     public static int getRandomNumber() {
         int defaultRange = 30; //set range of random numbers
         return random.nextInt(defaultRange) + 1;
     }
 
-    public static int getRandomNumber(int range) { //when need specific range
+    public static int getRandomNumber(int range) {
         return random.nextInt(range) + 1;
     }
 
+    /**
+     * Запуск выбранной игры
+     */
     public static void startChosenGame(String choice) {
         if (choice.equals("1")) {
             currentGame = "Greet";
@@ -85,6 +100,9 @@ public class Engine {
         }
     }
 
+    /**
+     * Установка задачи для текущего раунда
+     */
     public static void setTask() {
         switch (currentGame) {
             case "Even":
@@ -107,6 +125,9 @@ public class Engine {
         }
     }
 
+    /**
+     * Настройка параметров проверки ответа
+     */
     public static void setCheckingOptions() {
         switch (currentGame) {
             case "Even":
@@ -134,14 +155,24 @@ public class Engine {
         }
     }
 
+    /**
+     * Возвращает текущую задачу
+     */
     public static String getTask() {
         return task;
     }
 
+    /**
+     * Возвращает ответ пользователя
+     */
     public static String getAnswer() {
         return answer;
     }
 
+    /**
+     * Основной игровой цикл
+     * Выполняет заданное количество раундов игры
+     */
     public static void gameRoutine() {
         int rightAnswers = 0;
 
@@ -166,6 +197,9 @@ public class Engine {
         }
     }
 
+    /**
+     * Закрывает ввод данных от пользователя
+     */
     public static void setClose() {
         userInput.close();
     }

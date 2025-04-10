@@ -2,12 +2,24 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
+/**
+ * Класс для игры "Calc" - математические операции
+ * Кроме деления
+ */
 public class Calc {
+
+    /**
+     * Выводит правила игры
+     */
     public static void getGameQuestion() {
         System.out.println("What is the result of the expression?");
     }
 
     private static Integer result;
+
+    /**
+     * Генерирует математическую задачу
+     */
     public static String getTask() {
         int num1 = Engine.getRandomNumber();
         int num2 = Engine.getRandomNumber();
@@ -35,11 +47,17 @@ public class Calc {
         return textOfTask;
     }
 
+    /**
+     * Проверяет ответ пользователя
+     */
     public static boolean checkAnswer() {
         String answer = Engine.getAnswer();
         return (String.valueOf(result).equals(answer));
     }
 
+    /**
+     * Возвращает правильный ответ
+     */
     public static String getRightAnswer() {
         return String.valueOf(result);
     }

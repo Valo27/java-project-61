@@ -9,28 +9,31 @@ import java.util.Scanner;
 import java.util.Random;
 
 /**
- * Основной класс, управляющий игровым процессом
+ * Основной класс, управляющий игровым процессом.
  */
 public class Engine {
-    private static Scanner userInput = new Scanner(System.in);
+
+    private static final Scanner USER_INPUT = new Scanner(System.in);
     private static String name;
     private static String currentGame;
-    private static Random random = new Random();
-    private static int countOfRounds = 3;
+    private static final Random RANDOM = new Random();
+    private static final int COUNT_OF_ROUNDS = 3;
     private static String task;
     private static String answer;
     private static Boolean isCorrectAnswer;
     private static String rightAnswer;
 
     /**
-     * Получение ввода от пользователя
+     * Получение ввода от пользователя.
+     *
+     * @return введенная строка
      */
     public static String getChoice() {
-        return userInput.nextLine();
+        return USER_INPUT.nextLine();
     }
 
     /**
-     * Приветствие и получение имени игрока
+     * Приветствие и получение имени игрока.
      */
     public static void getGreeting() {
         System.out.println("Welcome to the Brain Games!");
@@ -40,19 +43,29 @@ public class Engine {
     }
 
     /**
-     * Генерация случайного числа
+     * Генерация случайного числа.
+     *
+     * @return случайное число в заданном диапазоне
      */
     public static int getRandomNumber() {
-        int defaultRange = 30; //set range of random numbers
-        return random.nextInt(defaultRange) + 1;
-    }
-
-    public static int getRandomNumber(int range) {
-        return random.nextInt(range) + 1;
+        final int defaultRange = 30;
+        return RANDOM.nextInt(defaultRange) + 1;
     }
 
     /**
-     * Запуск выбранной игры
+     * Генерация случайного числа с указанным диапазоном.
+     *
+     * @param range заданный диапазон
+     * @return случайное число
+     */
+    public static int getRandomNumber(int range) {
+        return RANDOM.nextInt(range) + 1;
+    }
+
+    /**
+     * Запуск выбранной игры.
+     *
+     * @param choice номер выбранной игры
      */
     public static void startChosenGame(String choice) {
         if (choice.equals("1")) {
@@ -101,7 +114,7 @@ public class Engine {
     }
 
     /**
-     * Установка задачи для текущего раунда
+     * Установка задачи для текущего раунда.
      */
     public static void setTask() {
         switch (currentGame) {
@@ -126,7 +139,7 @@ public class Engine {
     }
 
     /**
-     * Настройка параметров проверки ответа
+     * Настройка параметров проверки ответа.
      */
     public static void setCheckingOptions() {
         switch (currentGame) {
@@ -156,27 +169,31 @@ public class Engine {
     }
 
     /**
-     * Возвращает текущую задачу
+     * Возвращает текущую задачу.
+     *
+     * @return текущая задача
      */
     public static String getTask() {
         return task;
     }
 
     /**
-     * Возвращает ответ пользователя
+     * Возвращает ответ пользователя.
+     *
+     * @return ответ пользователя
      */
     public static String getAnswer() {
         return answer;
     }
 
     /**
-     * Основной игровой цикл
-     * Выполняет заданное количество раундов игры
+     * Основной игровой цикл.
+     * Выполняет заданное количество раундов игры.
      */
     public static void gameRoutine() {
         int rightAnswers = 0;
 
-        for (var i = 1; i <= countOfRounds; i++) {
+        for (int i = 1; i <= COUNT_OF_ROUNDS; i++) {
             setTask();
             System.out.println("Question: " + task);
             System.out.print("Your answer: ");
@@ -192,15 +209,15 @@ public class Engine {
             }
         }
 
-        if (rightAnswers == 3) {
+        if (rightAnswers == COUNT_OF_ROUNDS) {
             System.out.println("Congratulations, " + name + "!");
         }
     }
 
     /**
-     * Закрывает ввод данных от пользователя
+     * Закрывает ввод данных от пользователя.
      */
     public static void setClose() {
-        userInput.close();
+        USER_INPUT.close();
     }
 }

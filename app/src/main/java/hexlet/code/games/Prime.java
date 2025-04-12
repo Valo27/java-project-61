@@ -3,19 +3,21 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 /**
- * Класс для игры "Prime" - проверка чисел на простоту
+ * Класс для игры "Prime" - проверка чисел на простоту.
  */
 public class Prime {
 
     /**
-     * Выводит правила игры
+     * Выводит правила игры.
      */
     public static void getGameQuestion() {
         System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
     }
 
     /**
-     * Генерирует случайное число для задачи
+     * Генерирует случайное число для задачи.
+     *
+     * @return случайное число
      */
     public static String getTask() {
         int number = Engine.getRandomNumber(100);
@@ -23,7 +25,10 @@ public class Prime {
     }
 
     /**
-     * Проверяет, является ли число простым
+     * Проверяет, является ли число простым.
+     *
+     * @param number проверяемое число
+     * @return true, если число простое
      */
     public static boolean isPrime(int number) {
         if (number <= 1) {
@@ -38,7 +43,11 @@ public class Prime {
     }
 
     /**
-     * Проверяет правильность ответа пользователя
+     * Проверяет правильность ответа пользователя.
+     *
+     * @param userAnswer ответ пользователя
+     * @param task задача
+     * @return true, если ответ правильный
      */
     public static boolean checkAnswer(String userAnswer, String task) {
         boolean isPrime = isPrime(Integer.parseInt(task));
@@ -47,7 +56,10 @@ public class Prime {
     }
 
     /**
-     * Возвращает правильный ответ
+     * Возвращает правильный ответ.
+     *
+     * @param task задача
+     * @return правильный ответ
      */
     public static String getRightAnswer(String task) {
         boolean isPrime = isPrime(Integer.parseInt(task));

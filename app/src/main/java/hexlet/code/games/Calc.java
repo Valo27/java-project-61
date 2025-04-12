@@ -3,13 +3,13 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 /**
- * Класс для игры "Calc" - математические операции
- * Кроме деления
+ * Класс для игры "Calc" - математические операции.
+ * Кроме деления.
  */
 public class Calc {
 
     /**
-     * Выводит правила игры
+     * Выводит правила игры.
      */
     public static void getGameQuestion() {
         System.out.println("What is the result of the expression?");
@@ -18,45 +18,48 @@ public class Calc {
     private static Integer result;
 
     /**
-     * Генерирует математическую задачу
+     * Генерирует математическую задачу.
+     *
+     * @return строку с математическим выражением
      */
     public static String getTask() {
         int num1 = Engine.getRandomNumber();
         int num2 = Engine.getRandomNumber();
         int randomOperator = Engine.getRandomNumber(3);
-        String textOfTask = "";
+        String textOfTask;
 
-        switch (randomOperator) {
-            case 1:
+        textOfTask = switch (randomOperator) {
+            case 0 -> {
                 result = num1 + num2;
-                textOfTask = num1 + " + " + num2;
-                break;
-            case 2:
+                yield num1 + " + " + num2;
+            }
+            case 1 -> {
                 result = num1 - num2;
-                textOfTask = num1 + " - " + num2;
-                break;
-            case 3:
+                yield num1 + " - " + num2;
+            }
+            case 2 -> {
                 result = num1 * num2;
-                textOfTask = num1 + " * " + num2;
-                break;
-            default:
-                result = 0;
-                System.out.println("Unknown operator!");
-                break;
-        }
+                yield num1 + " * " + num2;
+            }
+            default -> throw new IllegalStateException("Unknown operator!");
+        };
         return textOfTask;
     }
 
     /**
-     * Проверяет ответ пользователя
+     * Проверяет ответ пользователя.
+     *
+     * @return true, если ответ правильный, иначе false
      */
     public static boolean checkAnswer() {
         String answer = Engine.getAnswer();
-        return (String.valueOf(result).equals(answer));
+        return String.valueOf(result).equals(answer);
     }
 
     /**
-     * Возвращает правильный ответ
+     * Возвращает правильный ответ.
+     *
+     * @return правильный ответ на задачу
      */
     public static String getRightAnswer() {
         return String.valueOf(result);

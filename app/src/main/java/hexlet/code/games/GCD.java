@@ -1,23 +1,23 @@
-
-
 package hexlet.code.games;
 
 import hexlet.code.Engine;
 
 /**
- * Класс для игры "GCD" - нахождение наибольшего общего делителя
+ * Класс для игры "GCD" - нахождение наибольшего общего делителя.
  */
 public class GCD {
 
     /**
-     * Выводит правила игры
+     * Выводит правила игры.
      */
     public static void getGameQuestion() {
         System.out.println("Find the greatest common divisor of given numbers.");
     }
 
     /**
-     * Генерирует задачу с двумя числами
+     * Генерирует задачу с двумя числами.
+     *
+     * @return строку с двумя случайными числами
      */
     public static String getTask() {
         int num1 = Engine.getRandomNumber(100);
@@ -26,7 +26,11 @@ public class GCD {
     }
 
     /**
-     * Вычисляет НОД двух чисел
+     * Вычисляет НОД двух чисел.
+     *
+     * @param a первое число
+     * @param b второе число
+     * @return наибольший общий делитель чисел a и b
      */
     public static int calculateGCD(int a, int b) {
         while (b != 0) {
@@ -38,7 +42,11 @@ public class GCD {
     }
 
     /**
-     * Проверяет ответ пользователя
+     * Проверяет ответ пользователя.
+     *
+     * @param userAnswer ответ пользователя
+     * @param task задача с двумя числами
+     * @return true, если ответ правильный, иначе false
      */
     public static boolean checkAnswer(String userAnswer, String task) {
         String[] numbers = task.split(" ");
@@ -49,7 +57,10 @@ public class GCD {
     }
 
     /**
-     * Возвращает правильный ответ
+     * Возвращает правильный ответ.
+     *
+     * @param task задача с двумя числами
+     * @return правильный ответ (НОД двух чисел)
      */
     public static String getRightAnswer(String task) {
         String[] numbers = task.split(" ");

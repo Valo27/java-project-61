@@ -2,17 +2,37 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
+import java.util.Random;
+
 /**
  * Класс для игры "Calc" - математические операции.
  * Кроме деления.
  */
 public class Calc {
 
+    private static final Random RANDOM = new Random();
+
     /**
-     * Выводит правила игры.
+     * Начало игры чётное/нечётное
      */
-    public static void getGameQuestion() {
-        System.out.println("What is the result of the expression?");
+    public static void gameStart() {
+        //устанавливаем правила игры
+        String greeting = "What is the result of the expression?";
+        //запускаем приветствие с передачей правил игры
+        Engine.getGreeting(greeting);
+
+        //запускаем раунды
+        for (int i = 0; i < Engine.getRounds(); i++) {
+            //устанавливаем вопрос
+            String task = getTask();
+            //устанавливаем верный ответ
+            String current = getRightAnswer();
+            //запускаем движок проверки ответа и передаём (вопрос, ответ)
+            Engine.gameRoutine(task, current);
+        }
+
+        //выводим попеду
+        Engine.win();
     }
 
     private static Integer result;
@@ -25,7 +45,7 @@ public class Calc {
     public static String getTask() {
         int num1 = Engine.getRandomNumber();
         int num2 = Engine.getRandomNumber();
-        int randomOperator = Engine.getRandomNumber(3);
+        int randomOperator = RANDOM.nextInt(3);
         String textOfTask;
 
         textOfTask = switch (randomOperator) {
@@ -41,19 +61,9 @@ public class Calc {
                 result = num1 * num2;
                 yield num1 + " * " + num2;
             }
-            default -> throw new IllegalStateException("Unknown operator!");
+            default -> throw new IllegalStateException("Unexpected value: " + randomOperator);
         };
         return textOfTask;
-    }
-
-    /**
-     * Проверяет ответ пользователя.
-     *
-     * @return true, если ответ правильный, иначе false
-     */
-    public static boolean checkAnswer() {
-        String answer = Engine.getAnswer();
-        return String.valueOf(result).equals(answer);
     }
 
     /**

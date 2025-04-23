@@ -8,10 +8,26 @@ import hexlet.code.Engine;
 public class GCD {
 
     /**
-     * Выводит правила игры.
+     * Начало игры чётное/нечётное
      */
-    public static void getGameQuestion() {
-        System.out.println("Find the greatest common divisor of given numbers.");
+    public static void gameStart() {
+        //устанавливаем правила игры
+        String greeting = "Find the greatest common divisor of given numbers.";
+        //запускаем приветствие с передачей правил игры
+        Engine.getGreeting(greeting);
+
+        //запускаем раунды
+        for (int i = 0; i < Engine.getRounds(); i++) {
+            //устанавливаем вопрос
+            String task = getTask();
+            //устанавливаем верный ответ
+            String current = getRightAnswer(task);
+            //запускаем движок проверки ответа и передаём (вопрос, ответ)
+            Engine.gameRoutine(task, current);
+        }
+
+        //выводим попеду
+        Engine.win();
     }
 
     /**
@@ -39,21 +55,6 @@ public class GCD {
             a = temp;
         }
         return a;
-    }
-
-    /**
-     * Проверяет ответ пользователя.
-     *
-     * @param userAnswer ответ пользователя
-     * @param task задача с двумя числами
-     * @return true, если ответ правильный, иначе false
-     */
-    public static boolean checkAnswer(String userAnswer, String task) {
-        String[] numbers = task.split(" ");
-        int num1 = Integer.parseInt(numbers[0]);
-        int num2 = Integer.parseInt(numbers[1]);
-        int correctAnswer = calculateGCD(num1, num2);
-        return Integer.parseInt(userAnswer) == correctAnswer;
     }
 
     /**

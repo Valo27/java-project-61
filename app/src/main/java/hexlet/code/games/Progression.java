@@ -1,5 +1,7 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
+
 import java.util.Random;
 
 /**
@@ -9,11 +11,24 @@ public class Progression {
     private static final Random RANDOM = new Random();
     private static int hiddenNumber;
 
-    /**
-     * Выводит правила игры.
-     */
-    public static void getGameQuestion() {
-        System.out.println("What number is missing in the progression?");
+    public static void gameStart() {
+        //устанавливаем правила игры
+        String greeting = "What number is missing in the progression?";
+        //запускаем приветствие с передачей правил игры
+        Engine.getGreeting(greeting);
+
+        //запускаем раунды
+        for (int i = 0; i < Engine.getRounds(); i++) {
+            //устанавливаем вопрос
+            String task = getTask();
+            //устанавливаем верный ответ
+            String current = getRightAnswer();
+            //запускаем движок проверки ответа и передаём (вопрос, ответ)
+            Engine.gameRoutine(task, current);
+        }
+
+        //выводим попеду
+        Engine.win();
     }
 
     /**
@@ -44,16 +59,6 @@ public class Progression {
             }
         }
         return task.toString().trim();
-    }
-
-    /**
-     * Проверяет ответ пользователя.
-     *
-     * @param answer ответ пользователя
-     * @return true, если ответ правильный, иначе false
-     */
-    public static boolean checkAnswer(String answer) {
-        return Integer.parseInt(answer) == hiddenNumber;
     }
 
     /**

@@ -8,11 +8,28 @@ import hexlet.code.Engine;
 public class Even {
 
     /**
-     * Выводит правила игры.
+     * Начало игры чётное/нечётное
      */
-    public static void getGameQuestion() {
-        System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
+    public static void gameStart() {
+        //устанавливаем правила игры
+        String greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
+        //запускаем приветствие с передачей правил игры
+        Engine.getGreeting(greeting);
+
+        //запускаем раунды
+        for (int i = 0; i < Engine.getRounds(); i++) {
+            //устанавливаем вопрос
+            String task = String.valueOf(getTask());
+            //устанавливаем верный ответ
+            String current = checkAnswer(Integer.parseInt(task));
+            //запускаем движок проверки ответа и передаём (вопрос, ответ)
+            Engine.gameRoutine(task, current);
+        }
+
+        //выводим попеду
+        Engine.win();
     }
+
 
     /**
      * Генерирует случайное число для задачи.
@@ -24,24 +41,11 @@ public class Even {
     }
 
     /**
-     * Проверяет ответ пользователя.
-     *
-     * @return true, если ответ правильный, иначе false
-     */
-    public static boolean checkAnswer() {
-        int task = Integer.parseInt(Engine.getTask());
-        String answer = Engine.getAnswer();
-        return (answer.equalsIgnoreCase("yes") && task % 2 == 0)
-                || (answer.equalsIgnoreCase("no") && task % 2 != 0);
-    }
-
-    /**
      * Возвращает правильный ответ.
      *
      * @return правильный ответ (yes или no)
      */
-    public static String getRightAnswer() {
-        int task = Integer.parseInt(Engine.getTask());
+    public static String checkAnswer(int task) {
         return task % 2 == 0 ? "yes" : "no";
     }
 }

@@ -8,10 +8,26 @@ import hexlet.code.Engine;
 public class Prime {
 
     /**
-     * Выводит правила игры.
+     * Начало игры чётное/нечётное
      */
-    public static void getGameQuestion() {
-        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+    public static void gameStart() {
+        //устанавливаем правила игры
+        String greeting = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+        //запускаем приветствие с передачей правил игры
+        Engine.getGreeting(greeting);
+
+        //запускаем раунды
+        for (int i = 0; i < Engine.getRounds(); i++) {
+            //устанавливаем вопрос
+            String task = getTask();
+            //устанавливаем верный ответ
+            String current = getRightAnswer(task);
+            //запускаем движок проверки ответа и передаём (вопрос, ответ)
+            Engine.gameRoutine(task, current);
+        }
+
+        //выводим попеду
+        Engine.win();
     }
 
     /**
@@ -31,6 +47,9 @@ public class Prime {
      * @return true, если число простое
      */
     public static boolean isPrime(int number) {
+        if (number == 1) {
+            return true;
+        }
         if (number <= 1) {
             return false;
         }
@@ -40,19 +59,6 @@ public class Prime {
             }
         }
         return true;
-    }
-
-    /**
-     * Проверяет правильность ответа пользователя.
-     *
-     * @param userAnswer ответ пользователя
-     * @param task задача
-     * @return true, если ответ правильный
-     */
-    public static boolean checkAnswer(String userAnswer, String task) {
-        boolean isPrime = isPrime(Integer.parseInt(task));
-        String correctAnswer = isPrime ? "yes" : "no";
-        return userAnswer.equals(correctAnswer);
     }
 
     /**

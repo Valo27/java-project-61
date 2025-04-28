@@ -2,20 +2,11 @@ package hexlet.code;
 
 import hexlet.code.games.*;
 
-/**
- * Основной класс приложения, содержащий точку входа main.
- * Представляет собой меню выбора различных игр.
- */
 public class App {
 
     private static final String CHOICE_PROMPT = "Your choice: ";
     private static final String WELCOME_MESSAGE = "Please enter the game number and press Enter.";
 
-    /**
-     * Точка входа в приложение. Выводит меню выбора игр и запускает выбранную игру.
-     *
-     * @param args аргументы командной строки
-     */
     public static void main(String[] args) {
         System.out.println(WELCOME_MESSAGE);
 
@@ -34,12 +25,6 @@ public class App {
         Engine.setClose();
     }
 
-    /**
-     * Запуск выбранной игры.
-     *
-     * @param choice номер выбранной игры
-     *              лучше сделать через else if или switch
-     */
     public static void startChosenGame(String choice) {
         if (choice.equals("1")) {
             Engine.getGreeting("");

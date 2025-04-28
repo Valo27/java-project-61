@@ -4,9 +4,6 @@ import hexlet.code.Engine;
 
 import java.util.Random;
 
-/**
- * Класс для игры "Progression" - угадывание пропущенного числа в арифметической прогрессии.
- */
 public class Progression {
     private static final Random RANDOM = new Random();
     private static int hiddenNumber;
@@ -31,11 +28,6 @@ public class Progression {
         Engine.win();
     }
 
-    /**
-     * Генерирует задачу с пропущенным числом в прогрессии.
-     *
-     * @return строку с арифметической прогрессией и пропущенным числом
-     */
     public static String getTask() {
         int progressionLength = RANDOM.nextInt(6) + 5;
         int step = RANDOM.nextInt(10) + 1;
@@ -61,11 +53,6 @@ public class Progression {
         return task.toString().trim();
     }
 
-    /**
-     * Возвращает правильный ответ.
-     *
-     * @return правильный ответ (пропущенное число)
-     */
     public static String getRightAnswer() {
         return String.valueOf(hiddenNumber);
     }

@@ -2,14 +2,8 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-/**
- * Класс для игры "Prime" - проверка чисел на простоту.
- */
 public class Prime {
 
-    /**
-     * Начало игры чётное/нечётное
-     */
     public static void gameStart() {
         //устанавливаем правила игры
         String greeting = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
@@ -30,22 +24,11 @@ public class Prime {
         Engine.win();
     }
 
-    /**
-     * Генерирует случайное число для задачи.
-     *
-     * @return случайное число
-     */
     public static String getTask() {
         int number = Engine.getRandomNumber(100);
         return String.valueOf(number);
     }
 
-    /**
-     * Проверяет, является ли число простым.
-     *
-     * @param number проверяемое число
-     * @return true, если число простое
-     */
     public static boolean isPrime(int number) {
         if (number == 1) {
             return true;
@@ -61,12 +44,6 @@ public class Prime {
         return true;
     }
 
-    /**
-     * Возвращает правильный ответ.
-     *
-     * @param task задача
-     * @return правильный ответ
-     */
     public static String getRightAnswer(String task) {
         boolean isPrime = isPrime(Integer.parseInt(task));
         return isPrime ? "yes" : "no";

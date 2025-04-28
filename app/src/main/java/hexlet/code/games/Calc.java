@@ -4,17 +4,10 @@ import hexlet.code.Engine;
 
 import java.util.Random;
 
-/**
- * Класс для игры "Calc" - математические операции.
- * Кроме деления.
- */
 public class Calc {
 
     private static final Random RANDOM = new Random();
 
-    /**
-     * Начало игры чётное/нечётное
-     */
     public static void gameStart() {
         //устанавливаем правила игры
         String greeting = "What is the result of the expression?";
@@ -37,11 +30,6 @@ public class Calc {
 
     private static Integer result;
 
-    /**
-     * Генерирует математическую задачу.
-     *
-     * @return строку с математическим выражением
-     */
     public static String getTask() {
         int num1 = Engine.getRandomNumber();
         int num2 = Engine.getRandomNumber();
@@ -66,11 +54,6 @@ public class Calc {
         return textOfTask;
     }
 
-    /**
-     * Возвращает правильный ответ.
-     *
-     * @return правильный ответ на задачу
-     */
     public static String getRightAnswer() {
         return String.valueOf(result);
     }

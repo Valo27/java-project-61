@@ -1,4 +1,5 @@
 plugins {
+    id("org.sonarqube") version "6.0.1.5171"
     id("com.github.ben-manes.versions") version "0.52.0"
     application
     id("checkstyle")
@@ -28,3 +29,10 @@ tasks.test {
     useJUnitPlatform()
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "Valo27_java-project-61")
+        property("sonar.organization", "valo27")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}

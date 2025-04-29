@@ -2,35 +2,55 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
+/**
+ * Класс для игры "GCD" - нахождение наибольшего общего делителя (НОД).
+ * Пользователь должен найти НОД для двух заданных чисел.
+ */
 public class GCD {
 
+    /**
+     * Запускает игру "GCD".
+     * Выводит приветственное сообщение и запускает игровой процесс
+     */
     public static void gameStart() {
-        //устанавливаем правила игры
+        // Приветственное сообщение с инструкцией
         String greeting = "Find the greatest common divisor of given numbers.";
-        //запускаем приветствие с передачей правил игры
         Engine.getGreeting(greeting);
 
-        //запускаем раунды
+        // Запуск игрового процесса на заданное количество раундов
         for (int i = 0; i < Engine.getRounds(); i++) {
-            //устанавливаем вопрос
+            // Генерируем задачу
             String task = getTask();
-            //устанавливаем верный ответ
+            // Получаем правильный ответ
             String current = getRightAnswer(task);
-            //запускаем движок проверки ответа и передаём (вопрос, ответ)
+            // Запускаем игровой раунд
             Engine.gameRoutine(task, current);
         }
 
-        //выводим попеду
         Engine.win();
     }
 
+    /**
+     * Генерирует случайную задачу - пару чисел для вычисления НОД.
+     *
+     * @return строка с двумя случайными числами, разделенными пробелом
+     */
     public static String getTask() {
+        // Генерируем два случайных числа от 1 до 100
         int num1 = Engine.getRandomNumber(100);
         int num2 = Engine.getRandomNumber(100);
         return num1 + " " + num2;
     }
 
+    /**
+     * Вычисляет наибольший общий делитель двух чисел.
+     *
+     * @param a первое число
+     * @param b второе число
+     * @return НОД для заданных чисел
+     */
     public static int calculateGCD(int a, int b) {
+        // Используем алгоритм Евклида для нахождения НОД
         while (b != 0) {
             int temp = b;
             b = a % b;
@@ -39,10 +59,18 @@ public class GCD {
         return a;
     }
 
+    /**
+     * Получает правильный ответ для заданной задачи.
+     *
+     * @param task строка с двумя числами, разделенными пробелом
+     * @return правильный ответ в виде строки
+     */
     public static String getRightAnswer(String task) {
+        // Разделяем строку на два числа
         String[] numbers = task.split(" ");
         int num1 = Integer.parseInt(numbers[0]);
         int num2 = Integer.parseInt(numbers[1]);
+        // Вычисляем и возвращаем НОД
         return String.valueOf(calculateGCD(num1, num2));
     }
 }

@@ -1,41 +1,54 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-
 import java.util.Random;
 
+/**
+ * Класс для игры "Calc" - математические вычисления.
+ * Пользователь должен решить математическое выражение и ввести ответ.
+ */
 public class Calc {
 
+    // Генератор случайных чисел
     private static final Random RANDOM = new Random();
 
+    /**
+     * Запускает игру "Calc".
+     * Выводит приветственное сообщение и запускает игровой процесс
+     */
     public static void gameStart() {
-        //устанавливаем правила игры
+        // Приветственное сообщение с инструкцией
         String greeting = "What is the result of the expression?";
-        //запускаем приветствие с передачей правил игры
         Engine.getGreeting(greeting);
 
-        //запускаем раунды
+        // Запуск игрового процесса на заданное количество раундов
         for (int i = 0; i < Engine.getRounds(); i++) {
-            //устанавливаем вопрос
             String task = getTask();
-            //устанавливаем верный ответ
             String current = getRightAnswer();
-            //запускаем движок проверки ответа и передаём (вопрос, ответ)
             Engine.gameRoutine(task, current);
         }
 
-        //выводим попеду
         Engine.win();
     }
 
+    // Хранит результат вычисления выражения
     private static Integer result;
 
+    /**
+     * Генерирует случайное математическое выражение.
+     *
+     * @return текстовое представление выражения
+     */
     public static String getTask() {
+        // Генерируем два случайных числа
         int num1 = Engine.getRandomNumber();
         int num2 = Engine.getRandomNumber();
+
+        // Случайным образом выбираем оператор
         int randomOperator = RANDOM.nextInt(3);
         String textOfTask;
 
+        // Создаем выражение в зависимости от выбранного оператора
         textOfTask = switch (randomOperator) {
             case 0 -> {
                 result = num1 + num2;
@@ -54,6 +67,11 @@ public class Calc {
         return textOfTask;
     }
 
+    /**
+     * Получает правильный ответ для сгенерированного выражения.
+     *
+     * @return правильный ответ в виде строки
+     */
     public static String getRightAnswer() {
         return String.valueOf(result);
     }

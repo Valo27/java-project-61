@@ -8,6 +8,9 @@ import hexlet.code.Engine;
  */
 public class GCD {
 
+    // Создаем константу для максимального значения чисел
+    private static final int MAX_NUMBER = 100;
+
     /**
      * Запускает игру "GCD".
      * Выводит приветственное сообщение и запускает игровой процесс
@@ -36,9 +39,9 @@ public class GCD {
      * @return строка с двумя случайными числами, разделенными пробелом
      */
     public static String getTask() {
-        // Генерируем два случайных числа от 1 до 100
-        int num1 = Engine.getRandomNumber(100);
-        int num2 = Engine.getRandomNumber(100);
+        // Генерируем два случайных числа от 1 до MAX_NUMBER
+        int num1 = Engine.getRandomNumber(MAX_NUMBER);
+        int num2 = Engine.getRandomNumber(MAX_NUMBER);
         return num1 + " " + num2;
     }
 

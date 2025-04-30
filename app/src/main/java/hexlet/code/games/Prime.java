@@ -8,6 +8,9 @@ import hexlet.code.Engine;
  */
 public class Prime {
 
+    // Создаем константу для максимального значения чисел
+    private static final int MAX_NUMBER = 100;
+
     /**
      * Запускает игру "Prime".
      * Выводит приветственное сообщение и запускает игровой процесс
@@ -30,10 +33,10 @@ public class Prime {
     /**
      * Генерирует случайное число для задачи.
      *
-     * @return случайное число в диапазоне от 1 до 100
+     * @return случайное число в диапазоне от 1 до MAX_NUMBER
      */
     public static String getTask() {
-        int number = Engine.getRandomNumber(100);
+        int number = Engine.getRandomNumber(MAX_NUMBER);
         return String.valueOf(number);
     }
 

@@ -12,6 +12,9 @@ public class Calc {
     // Генератор случайных чисел
     private static final Random RANDOM = new Random();
 
+    // Константа для количества возможных операторов
+    private static final int NUMBER_OF_OPERATORS = 3;
+
     /**
      * Запускает игру "Calc".
      * Выводит приветственное сообщение и запускает игровой процесс
@@ -45,7 +48,7 @@ public class Calc {
         int num2 = Engine.getRandomNumber();
 
         // Случайным образом выбираем оператор
-        int randomOperator = RANDOM.nextInt(3);
+        int randomOperator = RANDOM.nextInt(NUMBER_OF_OPERATORS);
         String textOfTask;
 
         // Создаем выражение в зависимости от выбранного оператора

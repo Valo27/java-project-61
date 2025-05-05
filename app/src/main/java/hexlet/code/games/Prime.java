@@ -11,7 +11,7 @@ public class Prime {
         Engine.getGreeting(greeting);
 
         // Запускаем ровно 3 раунда
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < Engine.getRounds(); i++) {
             String task = getTask();
             String correctAnswer = getRightAnswer(task);
             Engine.gameRoutine(task, correctAnswer);

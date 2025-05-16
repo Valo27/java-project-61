@@ -1,11 +1,4 @@
-
-
 package hexlet.code;
-
-/**
- * Класс для запуска всех игровых модулей.
- * Содержит главный метод, который управляет выбором игры.
- */
 
 import hexlet.code.games.Even;
 import hexlet.code.games.Calc;
@@ -13,6 +6,10 @@ import hexlet.code.games.GCD;
 import hexlet.code.games.Progression;
 import hexlet.code.games.Prime;
 
+/**
+ * Класс для запуска всех игровых модулей.
+ * Содержит главный метод, который управляет выбором игры.
+ */
 public class App {
     /**
      * Основной метод приложения.

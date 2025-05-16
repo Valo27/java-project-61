@@ -53,6 +53,11 @@ public class Prime {
      * @return true если число простое, false в противном случае
      */
     private static boolean primeCheck(int number) {
+        // Добавляем проверку на числа <= 1
+        if (number <= 1) {
+            return false;
+        }
+
         // Начинаем проверку с числа 2
         int numberSecond = 2;
 

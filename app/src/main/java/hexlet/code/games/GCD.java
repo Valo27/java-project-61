@@ -1,79 +1,89 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.GameConfig;
+import hexlet.code.Utils;
 
 /**
- * Класс для игры "GCD" - нахождение наибольшего общего делителя (НОД).
- * Пользователь должен найти НОД для двух заданных чисел.
+ * Класс для игры "Наибольший общий делитель"
+ * Реализует алгоритм поиска НОД двух чисел
  */
 public class GCD {
 
-    // Создаем константу для максимального значения чисел
-    private static final int MAX_NUMBER = 100;
+    /**
+     * Максимальное число для генерации случайных чисел
+     * Определяет диапазон значений в игре
+     */
+    private static final int RANDOM_MAX_NUMBER = 100;
 
     /**
-     * Запускает игру "GCD".
-     * Выводит приветственное сообщение и запускает игровой процесс
+     * Основной метод запуска игры
+     * Создает вопросы и ответы для игры
+     * Запускает игровой процесс
      */
-    public static void gameStart() {
-        // Приветственное сообщение с инструкцией
+    public static void gameGCD() {
+        // Получаем количество раундов из конфигурации
+        int rounds = GameConfig.getMaxRounds();
+
+        // Создаем массив для хранения вопросов и ответов
+        String[][] questAnswers = new String[rounds][2];
+
+        // Приветственное сообщение для игры
         String greeting = "Find the greatest common divisor of given numbers.";
-        Engine.getGreeting(greeting);
 
-        // Запуск игрового процесса на заданное количество раундов
-        for (int i = 0; i < Engine.getRounds(); i++) {
-            // Генерируем задачу
-            String task = getTask();
-            // Получаем правильный ответ
-            String current = getRightAnswer(task);
-            // Запускаем игровой раунд
-            Engine.gameRoutine(task, current);
+        // Генерируем вопросы и ответы для всех раундов
+        for (int i = 0; i < rounds; i++) {
+            // Генерируем два случайных числа
+            int number1 = Utils.random(RANDOM_MAX_NUMBER);
+            int number2 = Utils.random(RANDOM_MAX_NUMBER);
+
+            // Формируем правильный ответ
+            questAnswers[i][1] = Integer.toString(gcd(number1, number2));
+
+            // Формируем вопрос (два числа через пробел)
+            questAnswers[i][0] = number1 + " " + number2;
         }
 
-        Engine.win();
+        // Запускаем основной игровой процесс
+        Engine.gameStart(greeting, questAnswers);
     }
 
     /**
-     * Генерирует случайную задачу - пару чисел для вычисления НОД.
-     *
-     * @return строка с двумя случайными числами, разделенными пробелом
+     * Метод нахождения НОД двух чисел
+     * @param number1 первое число
+     * @param number2 второе число
+     * @return наибольший общий делитель
      */
-    public static String getTask() {
-        // Генерируем два случайных числа от 1 до MAX_NUMBER
-        int num1 = Engine.getRandomNumber(MAX_NUMBER);
-        int num2 = Engine.getRandomNumber(MAX_NUMBER);
-        return num1 + " " + num2;
-    }
-
-    /**
-     * Вычисляет наибольший общий делитель двух чисел.
-     *
-     * @param a первое число
-     * @param b второе число
-     * @return НОД для заданных чисел
-     */
-    public static int calculateGCD(int a, int b) {
-        // Используем алгоритм Евклида для нахождения НОД
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
+    public static int gcd(int number1, int number2) {
+        int result;
+        // Убеждаемся, что первое число всегда больше или равно второму
+        if (number1 >= number2) {
+            result = gcdLogic(number1, number2);
+        } else {
+            result = gcdLogic(number2, number1);
         }
-        return a;
+        return result;
     }
 
     /**
-     * Получает правильный ответ для заданной задачи.
-     *
-     * @param task строка с двумя числами, разделенными пробелом
-     * @return правильный ответ в виде строки
+     * Вспомогательный метод для вычисления НОД
+     * Использует алгоритм перебора делителей
+     * @param number1 большее число
+     * @param number2 меньшее число
+     * @return наибольший общий делитель
      */
-    public static String getRightAnswer(String task) {
-        // Разделяем строку на два числа
-        String[] numbers = task.split(" ");
-        int num1 = Integer.parseInt(numbers[0]);
-        int num2 = Integer.parseInt(numbers[1]);
-        // Вычисляем и возвращаем НОД
-        return String.valueOf(calculateGCD(num1, num2));
+    private static int gcdLogic(int number1, int number2) {
+        int result = 0;
+        // Начинаем поиск с половины большего числа
+        int isGCD = number1 / 2 == 0 ? 1 : number1 / 2;
+
+        // Ищем НОД, уменьшая число на каждой итерации
+        while (isGCD != 0 && result == 0) {
+            if (number1 % isGCD == 0 && number2 % isGCD == 0) {
+                result = isGCD;
+            }
+            isGCD--;
+        }
+        return result;
     }
 }

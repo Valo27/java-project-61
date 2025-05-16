@@ -1,119 +1,53 @@
 package hexlet.code;
 
-import java.util.Scanner;
-import java.util.Random;
-
 /**
- * Основной класс-движок для работы с играми.
- * Содержит базовые функции для взаимодействия с пользователем и обработки игр.
+ * Основной игровой движок для всех игр
+ * Содержит логику запуска игры и проверки ответов
  */
 public class Engine {
 
-    // Статический сканер для ввода данных от пользователя
-    private static final Scanner USER_INPUT = new Scanner(System.in);
-
-    // Имя пользователя
-    private static String name;
-
-    // Генератор случайных чисел
-    private static final Random RANDOM = new Random();
-
-    // Количество раундов по умолчанию
-    private static final int COUNT_OF_ROUNDS = 3;
-
     /**
-     * Возвращает количество раундов в игре.
-     *
-     * @return количество раундов
+     * Основной метод запуска игры
+     * @param greeting приветственное сообщение конкретной игры
+     * @param questAnswers массив вопросов и правильных ответов [вопрос][правильный ответ]
      */
-    public static int getRounds() {
-        return COUNT_OF_ROUNDS;
-    }
+    public static void gameStart(String greeting, String[][] questAnswers) {
 
-    /**
-     * Получает ввод от пользователя.
-     *
-     * @return введенную строку
-     */
-    public static String getChoice() {
-        return USER_INPUT.nextLine();
-    }
+        // Имя игрока
+        String nameGamer;
 
-    /**
-     * Приветствует пользователя и получает его имя.
-     *
-     * @param greeting дополнительное приветственное сообщение
-     */
-    public static void getGreeting(String greeting) {
+        // Приветственное сообщение
+        System.out.println();
         System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name?: ");
-        name = getChoice();
-        System.out.println("Hello, " + name + "!");
+        System.out.print("May I have your name? ");
+
+        // Получаем имя игрока
+        nameGamer = Utils.scannerString();
+        System.out.println("Hello, " + nameGamer + "!");
         System.out.println(greeting);
-    }
 
-    /**
-     * Генерирует случайное число в диапазоне от 1 до 30.
-     *
-     * @return случайное число
-     */
-    public static int getRandomNumber() {
-        final int defaultRange = 30;
-        return RANDOM.nextInt(defaultRange) + 1;
-    }
+        // Получаем количество раундов из конфигурации
+        int rounds = GameConfig.getMaxRounds();
 
-    /**
-     * Генерирует случайное число в указанном диапазоне.
-     *
-     * @param range верхний предел диапазона
-     * @return случайное число
-     */
-    public static int getRandomNumber(int range) {
-        return RANDOM.nextInt(range) + 1;
-    }
+        // Основной игровой цикл
+        for (int i = 0; i < rounds; i++) {
+            // Выводим вопрос и получаем ответ игрока
+            System.out.print("Question: " + questAnswers[i][0] + "\nYour answer: ");
+            String playerAnswer = Utils.scannerString();
 
-    /**
-     * Проверяет правильность ответа пользователя.
-     *
-     * @param answer ответ пользователя
-     * @param current правильный ответ
-     * @return true если ответы совпадают, иначе false
-     */
-    public static boolean setCheckingOptions(String answer, String current) {
-        return answer.equals(current);
-    }
-
-    /**
-     * Основной игровой процесс: выводит вопрос, получает ответ и проверяет его.
-     *
-     * @param task вопрос/задача
-     * @param current правильный ответ
-     */
-    public static void gameRoutine(String task, String current) {
-        System.out.println("Question: " + task);
-        System.out.print("Your answer: ");
-        String answer = Engine.getChoice();
-        boolean checkAnswer = setCheckingOptions(answer, current);
-        if (checkAnswer) {
-            System.out.println("Correct!");
-        } else {
-            System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + current + "'");
-            System.out.println("Let's try again, " + name + "!");
-            System.exit(0);
+            // Проверяем правильность ответа
+            if (playerAnswer.equals(questAnswers[i][1])) {
+                System.out.println("Correct!");
+            } else {
+                // Если ответ неверный, выводим сообщение об ошибке
+                System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.\n",
+                        playerAnswer, questAnswers[i][1]);
+                System.out.printf("Let's try again, %s!\n", nameGamer);
+                System.exit(0);
+            }
         }
-    }
 
-    /**
-     * Поздравляет пользователя с победой.
-     */
-    public static void win() {
-        System.out.println("Congratulations, " + name + "!");
-    }
-
-    /**
-     * Закрывает сканер ввода.
-     */
-    public static void setClose() {
-        USER_INPUT.close();
+        // Поздравление при успешной сдаче всех раундов
+        System.out.printf("Congratulations, %s!\n", nameGamer);
     }
 }

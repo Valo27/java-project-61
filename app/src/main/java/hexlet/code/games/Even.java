@@ -1,51 +1,49 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.GameConfig;
+import hexlet.code.Utils;
 
 /**
- * Класс для игры "Even" - определение четных чисел.
- * Пользователь должен определить, является ли число четным.
+ * Класс для игры "Четное число"
+ * Проверяет, является ли число четным
  */
 public class Even {
 
     /**
-     * Запускает игру "Even".
-     * Выводит приветственное сообщение и запускает игровой процесс
+     * Максимальное число для генерации случайных чисел
+     * Определяет диапазон чисел, которые будут проверяться на четность
      */
-    public static void gameStart() {
-        // Приветственное сообщение с инструкцией
-        String greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
-        Engine.getGreeting(greeting);
+    private static final int RANDOM_MAX_NUMBER = 100;
 
-        // Запуск игрового процесса на заданное количество раундов
-        for (int i = 0; i < Engine.getRounds(); i++) {
+    /**
+     * Основной метод запуска игры
+     * Создает вопросы и ответы для игры
+     * Запускает игровой процесс
+     */
+    public static void gameEven() {
+        // Получаем количество раундов из конфигурации
+        int rounds = GameConfig.getMaxRounds();
+
+        // Создаем массив для хранения вопросов и ответов
+        String[][] questAnswers = new String[rounds][2];
+
+        // Приветственное сообщение для игры
+        String greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
+
+        // Генерируем вопросы и ответы для всех раундов
+        for (int i = 0; i < rounds; i++) {
             // Генерируем случайное число
-            String task = String.valueOf(getTask());
-            // Получаем правильный ответ
-            String current = checkAnswer(Integer.parseInt(task));
-            // Запускаем игровой раунд
-            Engine.gameRoutine(task, current);
+            int number = Utils.random(RANDOM_MAX_NUMBER);
+
+            // Формируем вопрос (число в виде строки)
+            questAnswers[i][0] = Integer.toString(number);
+
+            // Определяем правильный ответ ('yes' или 'no')
+            questAnswers[i][1] = number % 2 == 0 ? "yes" : "no";
         }
 
-        Engine.win();
-    }
-
-    /**
-     * Генерирует случайное число для задачи.
-     *
-     * @return случайное число
-     */
-    public static int getTask() {
-        return Engine.getRandomNumber();
-    }
-
-    /**
-     * Проверяет, является ли число четным.
-     *
-     * @param task проверяемое число
-     * @return "yes" если число четное, "no" если нечетное
-     */
-    public static String checkAnswer(int task) {
-        return task % 2 == 0 ? "yes" : "no";
+        // Запускаем основной игровой процесс
+        Engine.gameStart(greeting, questAnswers);
     }
 }

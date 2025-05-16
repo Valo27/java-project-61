@@ -1,81 +1,80 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import java.util.Random;
+import hexlet.code.GameConfig;
+import hexlet.code.Utils;
 
 /**
- * Класс для игры "Calc" - математические вычисления.
- * Пользователь должен решить математическое выражение и ввести ответ.
+ * Класс для игры "Калькулятор"
+ * Генерирует математические выражения и проверяет их решения
  */
 public class Calc {
 
-    // Генератор случайных чисел
-    private static final Random RANDOM = new Random();
-
-    // Константа для количества возможных операторов
-    private static final int NUMBER_OF_OPERATORS = 3;
+    /**
+     * Максимальное число для генерации случайных чисел
+     * Определяет диапазон чисел в математических выражениях
+     */
+    private static final int RANDOM_MAX_NUMBER = 100;
 
     /**
-     * Запускает игру "Calc".
-     * Выводит приветственное сообщение и запускает игровой процесс
+     * Массив математических операций
+     * Содержит доступные математические знаки для выражений
      */
-    public static void gameStart() {
-        // Приветственное сообщение с инструкцией
-        String greeting = "What is the result of the expression?";
-        Engine.getGreeting(greeting);
+    private static final String[] MATH_SIGNS = {"+", "-", "*"};
 
-        // Запуск игрового процесса на заданное количество раундов
-        for (int i = 0; i < Engine.getRounds(); i++) {
-            String task = getTask();
-            String current = getRightAnswer();
-            Engine.gameRoutine(task, current);
+    /**
+     * Основной метод запуска игры
+     * Создает вопросы и ответы для игры
+     * Запускает игровой процесс
+     */
+    public static void gameCalc() {
+        // Получаем количество раундов из конфигурации
+        int rounds = GameConfig.getMaxRounds();
+
+        // Создаем массив для хранения вопросов и ответов
+        String[][] questAnswers = new String[rounds][2];
+
+        // Приветственное сообщение для игры
+        String greeting = "What is the result of the expression?";
+
+        // Генерируем вопросы и ответы для всех раундов
+        for (int i = 0; i < rounds; i++) {
+            // Генерируем два случайных числа
+            int number1 = Utils.random(RANDOM_MAX_NUMBER);
+            int number2 = Utils.random(RANDOM_MAX_NUMBER);
+
+            // Выбираем случайный математический знак
+            int mathSign = Utils.random(0, MATH_SIGNS.length);
+
+            // Формируем правильный ответ
+            questAnswers[i][1] = answerProgression(mathSign, number1, number2);
+
+            // Формируем вопрос (математическое выражение)
+            questAnswers[i][0] = number1 + " " + MATH_SIGNS[mathSign] + " " + number2;
         }
 
-        Engine.win();
+        // Запускаем основной игровой процесс
+        Engine.gameStart(greeting, questAnswers);
     }
 
-    // Хранит результат вычисления выражения
-    private static Integer result;
-
     /**
-     * Генерирует случайное математическое выражение.
-     *
-     * @return текстовое представление выражения
+     * Метод вычисления результата математического выражения
+     * @param mathSign индекс математического знака
+     * @param number1 первое число
+     * @param number2 второе число
+     * @return результат вычисления в виде строки
      */
-    public static String getTask() {
-        // Генерируем два случайных числа
-        int num1 = Engine.getRandomNumber();
-        int num2 = Engine.getRandomNumber();
+    private static String answerProgression(int mathSign, int number1, int number2) {
+        String result;
 
-        // Случайным образом выбираем оператор
-        int randomOperator = RANDOM.nextInt(NUMBER_OF_OPERATORS);
-        String textOfTask;
-
-        // Создаем выражение в зависимости от выбранного оператора
-        textOfTask = switch (randomOperator) {
-            case 0 -> {
-                result = num1 + num2;
-                yield num1 + " + " + num2;
-            }
-            case 1 -> {
-                result = num1 - num2;
-                yield num1 + " - " + num2;
-            }
-            case 2 -> {
-                result = num1 * num2;
-                yield num1 + " * " + num2;
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + randomOperator);
+        // Вычисляем результат в зависимости от математического знака
+        result = switch (MATH_SIGNS[mathSign]) {
+            case "+" -> Integer.toString(number1 + number2);
+            case "-" -> Integer.toString(number1 - number2);
+            case "*" -> Integer.toString(number1 * number2);
+            default -> "";
         };
-        return textOfTask;
-    }
 
-    /**
-     * Получает правильный ответ для сгенерированного выражения.
-     *
-     * @return правильный ответ в виде строки
-     */
-    public static String getRightAnswer() {
-        return String.valueOf(result);
+        return result;
     }
 }

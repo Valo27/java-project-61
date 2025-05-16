@@ -1,46 +1,71 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.GameConfig;
+import hexlet.code.Utils;
 
+/**
+ * Класс для игры "Простое число"
+ * Проверяет, является ли число простым
+ */
 public class Prime {
 
-    private static final int MAX_NUMBER = 100;
+    /**
+     * Максимальное число для генерации случайных чисел
+     * Определяет диапазон чисел, которые будут проверяться на простоту
+     */
+    private static final int RANDOM_MAX_NUMBER = 100;
 
-    public static void gameStart() {
+    /**
+     * Основной метод запуска игры
+     * Создает вопросы и ответы для игры
+     * Запускает игровой процесс
+     */
+    public static void gamePrime() {
+        // Получаем количество раундов из конфигурации
+        int rounds = GameConfig.getMaxRounds();
+
+        // Создаем массив для хранения вопросов и ответов
+        String[][] questAnswers = new String[rounds][2];
+
+        // Приветственное сообщение для игры
         String greeting = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-        Engine.getGreeting(greeting);
 
-        // Запускаем ровно 3 раунда
-        for (int i = 0; i < Engine.getRounds(); i++) {
-            String task = getTask();
-            String correctAnswer = getRightAnswer(task);
-            Engine.gameRoutine(task, correctAnswer);
+        // Генерируем вопросы и ответы для всех раундов
+        for (int i = 0; i < rounds; i++) {
+            // Генерируем случайное число
+            int number = Utils.random(RANDOM_MAX_NUMBER);
+
+            // Формируем вопрос (просто число в виде строки)
+            questAnswers[i][0] = Integer.toString(number);
+
+            // Определяем правильный ответ ('yes' или 'no')
+            questAnswers[i][1] = primeCheck(number) ? "yes" : "no";
         }
 
-        Engine.win();
+        // Запускаем основной игровой процесс
+        Engine.gameStart(greeting, questAnswers);
     }
 
-    public static String getTask() {
-        int number = Engine.getRandomNumber(MAX_NUMBER);
-        return String.valueOf(number);
-    }
+    /**
+     * Метод проверки числа на простоту
+     * @param number проверяемое число
+     * @return true если число простое, false в противном случае
+     */
+    private static boolean primeCheck(int number) {
+        // Начинаем проверку с числа 2
+        int numberSecond = 2;
 
-    public static boolean isPrime(int number) {
-        // Числа меньше или равные 1 не являются простыми
-        if (number <= 1) {
-            return false;
-        }
-        // Проверяем делимость до корня из числа
-        for (int i = 2; i <= Math.sqrt(number); i++) {
-            if (number % i == 0) {
+        // Проверяем делимость числа на все числа до него
+        while (numberSecond < number) {
+            // Если число делится без остатка, оно не простое
+            if (number % numberSecond == 0) {
                 return false;
             }
+            numberSecond++;
         }
-        return true;
-    }
 
-    public static String getRightAnswer(String task) {
-        boolean isPrime = isPrime(Integer.parseInt(task));
-        return isPrime ? "yes" : "no";
+        // Если цикл завершился, число простое
+        return true;
     }
 }

@@ -17,6 +17,12 @@ public class GCD {
     private static final int RANDOM_MAX_NUMBER = 100;
 
     /**
+     * Правила игры (константа класса).
+     */
+    private static final String GAME_RULES =
+            "Find the greatest common divisor of given numbers.";
+
+    /**
      * Основной метод запуска игры.
      * Создает вопросы и ответы для игры
      * Запускает игровой процесс
@@ -27,9 +33,6 @@ public class GCD {
 
         // Создаем массив для хранения вопросов и ответов
         String[][] questAnswers = new String[rounds][2];
-
-        // Приветственное сообщение для игры
-        String greeting = "Find the greatest common divisor of given numbers.";
 
         // Генерируем вопросы и ответы для всех раундов
         for (int i = 0; i < rounds; i++) {
@@ -45,7 +48,7 @@ public class GCD {
         }
 
         // Запускаем основной игровой процесс
-        Engine.gameStart(greeting, questAnswers);
+        Engine.gameStart(GAME_RULES, questAnswers);
     }
 
     /**

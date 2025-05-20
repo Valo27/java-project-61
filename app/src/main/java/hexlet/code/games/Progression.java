@@ -37,6 +37,12 @@ public class Progression {
     private static final int MASSIVE_LENGTH = 10;
 
     /**
+     * Правила игры (константа класса).
+     */
+    private static final String GAME_RULES =
+            "What number is missing in the progression?";
+
+    /**
      * Основной метод запуска игры.
      * Создает вопросы и ответы для игры.
      * Запускает игровой процесс.
@@ -47,9 +53,6 @@ public class Progression {
 
         // Создаем массив для хранения вопросов и ответов
         String[][] questAnswers = new String[rounds][2];
-
-        // Приветственное сообщение для игры
-        String greeting = "What number is missing in the progression?";
 
         // Генерируем вопросы и ответы для всех раундов
         for (int i = 0; i < rounds; i++) {
@@ -73,7 +76,7 @@ public class Progression {
         }
 
         // Запускаем основной игровой процесс
-        Engine.gameStart(greeting, questAnswers);
+        Engine.gameStart(GAME_RULES, questAnswers);
     }
 
     /**

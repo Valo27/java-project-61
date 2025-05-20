@@ -9,13 +9,16 @@ import java.util.Scanner;
  */
 public class Utils {
 
+    // Создаем один статический экземпляр Scanner для всего класса
+    private static final Scanner SCANNER = new Scanner(System.in);
+
     /**
      * Метод для получения строки от пользователя.
-     * Создает новый объект Scanner и возвращает введенную строку
+     * Использует один созданный экземпляр Scanner
      * @return введенная пользователем строка
      */
     public static String scannerString() {
-        return new Scanner(System.in).nextLine();
+        return SCANNER.nextLine();
     }
 
     /**

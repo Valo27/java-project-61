@@ -23,6 +23,11 @@ public class Calc {
     private static final String[] MATH_SIGNS = {"+", "-", "*"};
 
     /**
+     * Правила игры (константа класса).
+     */
+    private static final String GAME_RULES = "What is the result of the expression?";
+
+    /**
      * Основной метод запуска игры.
      * Создает вопросы и ответы для игры
      * Запускает игровой процесс
@@ -33,9 +38,6 @@ public class Calc {
 
         // Создаем массив для хранения вопросов и ответов
         String[][] questAnswers = new String[rounds][2];
-
-        // Приветственное сообщение для игры
-        String greeting = "What is the result of the expression?";
 
         // Генерируем вопросы и ответы для всех раундов
         for (int i = 0; i < rounds; i++) {
@@ -54,7 +56,7 @@ public class Calc {
         }
 
         // Запускаем основной игровой процесс
-        Engine.gameStart(greeting, questAnswers);
+        Engine.gameStart(GAME_RULES, questAnswers);
     }
 
     /**
@@ -72,7 +74,7 @@ public class Calc {
             case "+" -> Integer.toString(number1 + number2);
             case "-" -> Integer.toString(number1 - number2);
             case "*" -> Integer.toString(number1 * number2);
-            default -> "";
+            default -> throw new IllegalArgumentException();
         };
 
         return result;

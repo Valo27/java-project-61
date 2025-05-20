@@ -17,6 +17,12 @@ public class Even {
     private static final int RANDOM_MAX_NUMBER = 100;
 
     /**
+     * Правила игры (константа класса).
+     */
+    private static final String GAME_RULES =
+            "Answer 'yes' if the number is even, otherwise answer 'no'.";
+
+    /**
      * Основной метод запуска игры.
      * Создает вопросы и ответы для игры
      * Запускает игровой процесс
@@ -28,9 +34,6 @@ public class Even {
         // Создаем массив для хранения вопросов и ответов
         String[][] questAnswers = new String[rounds][2];
 
-        // Приветственное сообщение для игры
-        String greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
-
         // Генерируем вопросы и ответы для всех раундов
         for (int i = 0; i < rounds; i++) {
             // Генерируем случайное число
@@ -40,10 +43,19 @@ public class Even {
             questAnswers[i][0] = Integer.toString(number);
 
             // Определяем правильный ответ ('yes' или 'no')
-            questAnswers[i][1] = number % 2 == 0 ? "yes" : "no";
+            questAnswers[i][1] = isEven(number) ? "yes" : "no";
         }
 
         // Запускаем основной игровой процесс
-        Engine.gameStart(greeting, questAnswers);
+        Engine.gameStart(GAME_RULES, questAnswers);
+    }
+
+    /**
+     * Метод проверки числа на четность.
+     * @param number проверяемое число
+     * @return true если число четное, false если нечетное
+     */
+    private static boolean isEven(int number) {
+        return number % 2 == 0;
     }
 }

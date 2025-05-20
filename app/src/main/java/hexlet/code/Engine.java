@@ -13,16 +13,13 @@ public class Engine {
      */
     public static void gameStart(String greeting, String[][] questAnswers) {
 
-        // Имя игрока
-        String nameGamer;
-
         // Приветственное сообщение
         System.out.println();
         System.out.println("Welcome to the Brain Games!");
         System.out.print("May I have your name? ");
 
-        // Получаем имя игрока
-        nameGamer = Utils.scannerString();
+        // Объявляем и инициализируем имя игрока сразу
+        String nameGamer = Utils.scannerString();
         System.out.println("Hello, " + nameGamer + "!");
         System.out.println(greeting);
 
@@ -31,7 +28,7 @@ public class Engine {
 
         // Основной игровой цикл
         for (int i = 0; i < rounds; i++) {
-            // Выводим вопрос и получаем ответ игрока
+            // Объявляем и инициализируем ответ игрока сразу
             System.out.print("Question: " + questAnswers[i][0] + "\nYour answer: ");
             String playerAnswer = Utils.scannerString();
 

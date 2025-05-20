@@ -17,6 +17,12 @@ public class Prime {
     private static final int RANDOM_MAX_NUMBER = 100;
 
     /**
+     * Правила игры (константа класса).
+     */
+    private static final String GAME_RULES =
+            "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+
+    /**
      * Основной метод запуска игры.
      * Создает вопросы и ответы для игры
      * Запускает игровой процесс
@@ -28,9 +34,6 @@ public class Prime {
         // Создаем массив для хранения вопросов и ответов
         String[][] questAnswers = new String[rounds][2];
 
-        // Приветственное сообщение для игры
-        String greeting = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-
         // Генерируем вопросы и ответы для всех раундов
         for (int i = 0; i < rounds; i++) {
             // Генерируем случайное число
@@ -40,11 +43,11 @@ public class Prime {
             questAnswers[i][0] = Integer.toString(number);
 
             // Определяем правильный ответ ('yes' или 'no')
-            questAnswers[i][1] = primeCheck(number) ? "yes" : "no";
+            questAnswers[i][1] = isPrime(number) ? "yes" : "no";
         }
 
         // Запускаем основной игровой процесс
-        Engine.gameStart(greeting, questAnswers);
+        Engine.gameStart(GAME_RULES, questAnswers);
     }
 
     /**
@@ -52,7 +55,7 @@ public class Prime {
      * @param number проверяемое число
      * @return true если число простое, false в противном случае
      */
-    private static boolean primeCheck(int number) {
+    private static boolean isPrime(int number) {
         // Добавляем проверку на числа <= 1
         if (number <= 1) {
             return false;
@@ -61,8 +64,11 @@ public class Prime {
         // Начинаем проверку с числа 2
         int numberSecond = 2;
 
-        // Проверяем делимость числа на все числа до него
-        while (numberSecond < number) {
+        // Определяем верхнюю границу проверки как квадратный корень
+        int maxCheck = (int) Math.sqrt(number);
+
+        // Проверяем делимость числа до его квадратного корня
+        while (numberSecond <= maxCheck) {
             // Если число делится без остатка, оно не простое
             if (number % numberSecond == 0) {
                 return false;
